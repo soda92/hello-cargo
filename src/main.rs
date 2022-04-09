@@ -41,6 +41,8 @@ impl Person {
     }
 }
 
+extern crate crossbeam;
+
 fn main() {
     let x = 1;
     let y = x + 1;
@@ -61,4 +63,15 @@ fn main() {
     ];
     println!("{}", months[0]);
     println!("Hello, world!");
+
+    let mut array = [1, 2, 3];
+    crossbeam::scope(|scope| {
+        for x in &mut array {
+            scope.spawn(move |_| {
+                *x += 1;
+            });
+        }
+    });
+
+    println!("{:?}", array);
 }
