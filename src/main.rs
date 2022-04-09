@@ -75,6 +75,10 @@ fn main() {
             }
         });
     }
-
+    println!("{:?}", std::env::current_exe().unwrap().parent().unwrap().join("lib"));
+    println!("{:?}", std::env::current_dir().unwrap());
     println!("{:?}", array);
+    for var in std::env::vars() {
+        println!("{:?}", var);
+    }
 }
