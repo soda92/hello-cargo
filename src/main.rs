@@ -65,13 +65,16 @@ fn main() {
     println!("Hello, world!");
 
     let mut array = [1, 2, 3];
-    crossbeam::scope(|scope| {
-        for x in &mut array {
-            scope.spawn(move |_| {
-                *x += 1;
-            });
-        }
-    });
+    #[allow(unused_must_use)]
+    {
+        crossbeam::scope(|scope| {
+            for x in &mut array {
+                scope.spawn(move |_| {
+                    *x += 1;
+                });
+            }
+        });
+    }
 
     println!("{:?}", array);
 }
